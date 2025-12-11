@@ -1,7 +1,14 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 
+// Токен з environment variables
 const token = process.env.TOKEN;
+console.log('TOKEN:', token ? 'отримано' : 'НЕ знайдено!');
+
+if (!token) {
+  throw new Error('❌ Telegram Bot Token не надано! Перевір Variables у Railway.');
+}
+
 const bot = new TelegramBot(token, { polling: true });
 
 // Завантаження/збереження користувачів
@@ -23,27 +30,20 @@ let users = loadUsers();
 
 // Завантаження/збереження статистики
 function loadStats() {
-  if (fs.existsSync('stats.json')) {
-    try {
-      const data = fs.readFileSync('stats.json');
-      return JSON.parse(data.length ? data : JSON.stringify({
-        buy: { total: 0, monthly: {} },
-        info: { total: 0, monthly: {} },
-        doctors: { total: 0, monthly: {} }
-      }));
-    } catch {
-      return {
-        buy: { total: 0, monthly: {} },
-        info: { total: 0, monthly: {} },
-        doctors: { total: 0, monthly: {} }
-      };
-    }
-  }
-  return {
+  const defaultStats = {
     buy: { total: 0, monthly: {} },
     info: { total: 0, monthly: {} },
     doctors: { total: 0, monthly: {} }
   };
+  if (fs.existsSync('stats.json')) {
+    try {
+      const data = fs.readFileSync('stats.json');
+      return JSON.parse(data.length ? data : JSON.stringify(defaultStats));
+    } catch {
+      return defaultStats;
+    }
+  }
+  return defaultStats;
 }
 function saveStats() {
   fs.writeFileSync('stats.json', JSON.stringify(stats, null, 2));
