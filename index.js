@@ -1,13 +1,18 @@
 const TelegramBot = require('node-telegram-bot-api');
 const fs = require('fs');
 
-const token = '8291670826:AAGMrGYKsnKHggs5DPR-kQLH4Nsy6Fsumqk';
+const token = process.env.TOKEN;
 const bot = new TelegramBot(token, { polling: true });
 
 // Завантаження/збереження користувачів
 function loadUsers() {
   if (fs.existsSync('users.json')) {
-    return JSON.parse(fs.readFileSync('users.json'));
+    try {
+      const data = fs.readFileSync('users.json');
+      return JSON.parse(data.length ? data : "[]");
+    } catch {
+      return [];
+    }
   }
   return [];
 }
@@ -19,7 +24,20 @@ let users = loadUsers();
 // Завантаження/збереження статистики
 function loadStats() {
   if (fs.existsSync('stats.json')) {
-    return JSON.parse(fs.readFileSync('stats.json'));
+    try {
+      const data = fs.readFileSync('stats.json');
+      return JSON.parse(data.length ? data : JSON.stringify({
+        buy: { total: 0, monthly: {} },
+        info: { total: 0, monthly: {} },
+        doctors: { total: 0, monthly: {} }
+      }));
+    } catch {
+      return {
+        buy: { total: 0, monthly: {} },
+        info: { total: 0, monthly: {} },
+        doctors: { total: 0, monthly: {} }
+      };
+    }
   }
   return {
     buy: { total: 0, monthly: {} },
