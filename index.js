@@ -109,13 +109,13 @@ bot.on("callback_query", (query) => {
 
   switch (query.data) {
     case "promo":
-      bot.sendMessage(chatId, "🔥 Нова акція: Купи тест Citolab pH зі знижкою на https://citolabph.com.ua! Тільки для учасників конференції");
+      bot.sendMessage(chatId, "🔥 Нова акція: Купи тест Citolab pH зі знижкою 10% на https://citolabph.com.ua! Тільки для учасників конференції");
       break;
     case "coupon":
       bot.sendMessage(chatId, "🎁 Ваш купон: PH2026");
       break;
     case "catalog":
-      bot.sendMessage(chatId, "📦 Каталог:\n1. Тест Citolab pH №1 — 100 грн\n2. Тест Citolab pH №25 — 300 грн Знижка триватиме до кінця місяця");
+      bot.sendMessage(chatId, "📦 Тривалість знижки:\n1. Тест Citolab pH №1 — 90 грн\n2. Тест Citolab pH №25 — 270 грн Знижка триватиме до 22 грудня 2025");
       break;
     case "info":
       updateStats("info");
