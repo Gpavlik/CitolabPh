@@ -66,8 +66,8 @@ const mainMenu = {
   reply_markup: {
     inline_keyboard: [
       [{ text: "🔥 Акції", callback_data: "promo" }],
-      [{ text: "🎁 Отримати купон", callback_data: "coupon" }],
-      [{ text: "📦 Каталог", callback_data: "catalog" }],
+      //[{ text: "🎁 Отримати купон", callback_data: "coupon" }],
+      [{ text: "📦 Тривалість знижки", callback_data: "catalog" }],
       [{ text: "ℹ️ Інформація", callback_data: "info" }],
       [{ text: "🌐 Інформація для лікарів", callback_data: "doctors" }],
       [{ text: "🛒 Купити", callback_data: "buy" }]
@@ -109,13 +109,13 @@ bot.on("callback_query", (query) => {
 
   switch (query.data) {
     case "promo":
-      bot.sendMessage(chatId, "🔥 Нова акція: -20% на тест pH!");
+      bot.sendMessage(chatId, "🔥 Нова акція: Купи тест Citolab pH зі знижкою на https://citolabph.com.ua! Тільки для учасників конференції");
       break;
     case "coupon":
       bot.sendMessage(chatId, "🎁 Ваш купон: PH2026");
       break;
     case "catalog":
-      bot.sendMessage(chatId, "📦 Каталог:\n1. Тест Citolab pH №1 — 100 грн\n2. Тест Citolab pH №25 — 300 грн");
+      bot.sendMessage(chatId, "📦 Каталог:\n1. Тест Citolab pH №1 — 100 грн\n2. Тест Citolab pH №25 — 300 грн Знижка триватиме до кінця місяця");
       break;
     case "info":
       updateStats("info");
@@ -129,11 +129,8 @@ bot.on("callback_query", (query) => {
       updateStats("buy");
       bot.sendMessage(chatId, "🛒 Для покупки натисніть кнопку нижче:", {
         reply_markup: {
-          inline_keyboard: [
-            [{ text: "Розетка", url: "https://apteka.rozetka.com.ua/ua/testy-farmasko-156632550/p560962914/" }],
-            [{ text: "Citolab PH", url: "https://citolabph.com.ua" }],
-            [{ text: "Онлайн-магазин", url: "https://pharmasco.com/online-store" }]
-          ]
+          inline_keyboard: [            
+            [{ text: "Citolab PH", url: "https://citolabph.com.ua" }] ]
         }
       });
       break;
