@@ -109,7 +109,7 @@ bot.on("callback_query", (query) => {
 
   switch (query.data) {
     case "promo":
-      bot.sendMessage(chatId, "🔥 Нова акція: Купи тест Citolab pH зі знижкою 10% на https://citolabph.com.ua! Тільки для учасників конференції");
+      bot.sendMessage(chatId, "🔥 Нова акція: Купи тест Citolab pH зі знижкою 10% на https://citolabph.com.ua! Тільки для учасників конференції \"ЗДОРОВ’Я ЖІНКИ 40+ \"");
       break;
     case "coupon":
       bot.sendMessage(chatId, "🎁 Ваш купон: PH2026");
